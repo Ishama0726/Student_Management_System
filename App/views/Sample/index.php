@@ -101,7 +101,7 @@
 								<tbody>
 									<?php
 									
-									foreach ($level_table as $value) {
+									foreach ($Dashboard_table as $value) {
 										echo "<tr>";
 										echo "<td>{$value->l_id}</td>";
 										echo "<td>{$value->l_name}</td>";

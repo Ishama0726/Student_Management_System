@@ -16,7 +16,7 @@ class Sample
         $data['pagegroup'] = "";
         $data['User'] = $_SESSION['USER']->email;
         $user = new Demo_model;
-        $user->set_table('student');
+        
         $row = $user->singleQuery("SELECT COUNT(`id`) as COUNT FROM `student`;");
         $row2 = $user->singleQuery("SELECT COUNT(`t_id`) as COUNT FROM `teacher`;");
         $row3 = $user->singleQuery("SELECT COUNT(`l_id`) as COUNT FROM `level`;");
@@ -25,8 +25,10 @@ class Sample
             "teacher"   => "{$row2->COUNT}",
             "level"     => "{$row3->COUNT}"
         );
-        $row = $user->selectAll();
-        $data['Dashboard_table'] = $row;
+        $user->set_table('level');
+        $user->set_order_column('l_id');
+        $row_table = $user->selectAll();
+        $data['Dashboard_table'] = $row_table;
         $this->view('Sample/index', $data);
     }
 //Student
@@ -194,24 +196,24 @@ class Sample
         $data['page'] = "Add Teacher";
         $data['pagegroup'] = "UserManagement1";
         $data['User'] = $_SESSION['USER']->email;
+
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $user = new Demo_model;
-            $user->set_order_column('t_id');
             $user->set_table('teacher');
             $insert_data = array(
-                "t_id "             => $_POST['inputId'], 
+                "t_id"             => $_POST['inputId'], 
                 "t_name"            => $_POST['inputName'],
                 "t_nic"             => $_POST['inputNic'], 
                 "t_gender"          => $_POST['inputGender'],
                 "t_dob"             => $_POST['inputDateOfBirth'], 
                 "t_age"             => $_POST['inputAge'],
-                "t_address"         => $_POST['inputAddress	'], 
+                "t_address"         => $_POST['inputAddress'], 
                 "t_phone_number"    => $_POST['inputPhoneNumber'], 
                 "t_email"           => $_POST['inputEmail'],
-            
             );
-            $user->insert($insert_data);
-            redirect('Sample/teacher_management');
+            echo $user->insert($insert_data);
+            
+           // redirect('Sample/teacher_management');
         }
         $this->view('Sample/add_teacher', $data);
     }
@@ -325,7 +327,9 @@ class Sample
         $user->set_order_column('l_id');
         $user->set_table('level');
         $row = $user->selectAll();
-        $data['level_management'] = $row;
+        //$row = $user->singleQuery("SELECT MAX(`id`) as MAX FROM `users`;");
+
+        $data['Dashboard_table'] = $row;
         $this->view('Sample/level_management', $data);
     }
 
