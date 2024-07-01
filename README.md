@@ -1,11 +1,4 @@
 <br>
-<p align="center">
-    <a href="https://github.com/Udara-Dananjaya/PureFrame-PHP-Framework/" target="_blank">
-        <img src="https://raw.githubusercontent.com/Udara-Dananjaya/PureFrame-PHP-Framework/main/assets/img/PureFrame.png" width="400" alt="PureFrame PHP Framework" />
-    </a>
-</p>
-
-
 # PureFrame PHP Framework
 
 * PureFrame PHP Framework is a lightweight, object-oriented framework designed to simplify web application development.
